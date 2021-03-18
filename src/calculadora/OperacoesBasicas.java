@@ -1,62 +1,78 @@
 package calculadora;
-	
-	import java.util.Scanner;
+
+import java.util.Scanner;
 
 public class OperacoesBasicas {
 
 	public static void main(String[] args) {
-		
-		float a = 0, b = 0, resp = 0;
-		String operacao = null;
-		Scanner scan = new Scanner(System.in);
+		float a = 0, b = 0;
+		a = digitarNumero();
+		exibirMenuOpcoesOperacoes();
+		String operacao = digitarTexto();
+		exibirMenuDigitarSegundoNumero(operacao);
+		b = digitarNumero();
+		String resultado = executarOperacaoSelecionada(operacao, a, b);
+		exibirResultado(resultado);
+	}
+	
+	public static void exibirMenuDigitarPrimeiroNumero() {
 		System.out.println("----------Calculadora----------\n");
 		System.out.print("Digite o primeiro valor: ");
-		a = scan.nextFloat();
-		System.out.println("\nSelecione a Operação Desejada\n\n");
-		System.out.print("*******************************\n"
-				+        "(+) = Soma"
-				+        "\n(-) = Subtração"
-				+        "\n(*) = Multiplicação"
-				+        "\n(/) = Divisão"
-	            +        "\n*******************************"
-				+        "\n\nOperação: ");
-		operacao = scan.next();
-		
+	}
+	
+	public static void exibirMenuDigitarSegundoNumero(String operacao) {
 		System.out.println("\n-------------------------------\n");
 		
+		System.out.println("Operaï¿½ï¿½o " + operacao + " Selecionado.\n");
+		System.out.print("Digite o segundo valor: ");
+	}
+	
+	public static void exibirMenuOpcoesOperacoes() {
+		System.out.println("\nSelecione a Operaï¿½ï¿½o Desejada\n\n");
+		System.out.print("*******************************\n"
+				+        "(+) = Soma"
+				+        "\n(-) = Subtraï¿½ï¿½o"
+				+        "\n(*) = Multiplicaï¿½ï¿½o"
+				+        "\n(/) = Divisï¿½o"
+	            +        "\n*******************************"
+				+        "\n\nOperaï¿½ï¿½o: ");
+	}
+	
+	public static void exibirResultado(String resp) {
+		System.out.print("\nRESULTADO: " + resp);
+	}
+	
+	public static String executarOperacaoSelecionada(String operacao, float a, float b) {
+		float resp = 0;
 		switch(operacao) {
 		case "+":
-			System.out.println("Operação Soma Selecionado.\n");
-			System.out.print("Digite o segundo valor: ");
-			b = scan.nextFloat();
-			resp = a + b;
-			System.out.print("\nRESULTADO: " + resp);
+			resp = Calculadora.somar(a, b);
 			break;
-		
 		case "-":
-			System.out.println("Operação Subtração Selecionado.\n");
-			System.out.print("Digite o segundo valor: ");
-			b = scan.nextFloat();
-			resp = a - b;
-			System.out.print("\nRESULTADO: " + resp);
+			resp = Calculadora.subtrair(a, b);
 			break;
-			
 		case "*":
-			System.out.println("Operação Multiplicação Selecionado.\n");
-			System.out.print("Digite o segundo valor: ");
-			b = scan.nextFloat();
-			resp = a * b;
-			System.out.print("\nRESULTADO: " + resp);
+			resp = Calculadora.multiplicar(a, b);
 			break;
-			
 		case "/":
-			System.out.println("Operação Divisão Selecionado.\n");
-			System.out.print("Digite o segundo valor: ");
-			b = scan.nextFloat();
-			resp = a / b;
-			System.out.print("\nRESULTADO: " + resp);
+			resp = Calculadora.dividir(a, b);
 			break;
 		}
 		
+		return String.valueOf(resp);
+	}
+	
+	public static float digitarNumero() {
+		Scanner scan = new Scanner(System.in);
+		float resultado = scan.nextFloat();
+		scan.close();
+		return resultado;
+	}
+	
+	public static String digitarTexto() {
+		Scanner scan = new Scanner(System.in);
+		String resultado = scan.next();
+		scan.close();
+		return resultado;
 	}
 }
